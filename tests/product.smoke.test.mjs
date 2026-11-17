@@ -3,8 +3,6 @@ import assert from 'node:assert/strict';
 import { withPage, closeAll, isVisible, waitLoaded } from './helpers/browser.mjs';
 
 after(closeAll);
-// shortcut: posters arrive in Task 7; until then their 404s are expected. Remove this filter in Task 7.
-const real = errors => errors.filter(e => !/posters\//.test(e));
 const sleep = ms => new Promise(r => setTimeout(r, ms));
 
 test('loads sofa with AR attributes', () => withPage('/product.html?p=sofa', async (page, errors) => {
@@ -18,7 +16,7 @@ test('loads sofa with AR attributes', () => withPage('/product.html?p=sofa', asy
   assert.equal(attrs['shadow-intensity'], '1');
   assert.equal(attrs.poster, 'posters/sofa.webp');
   assert.match(await page.$eval('#credit', el => el.textContent), /CC BY 4\.0/);
-  assert.deepEqual(real(errors), []);
+  assert.deepEqual(errors, []);
 }));
 
 test('no AR on desktop shows QR and hides AR button', () => withPage('/product.html?p=chair', async (page, errors) => {
@@ -26,7 +24,7 @@ test('no AR on desktop shows QR and hides AR button', () => withPage('/product.h
   await page.waitForSelector('#qr-panel svg', { visible: true, timeout: 5000 });
   assert.equal(await isVisible(page, '#ar-button'), false);
   assert.equal(await isVisible(page, '#qr-panel .local-warning'), true); // test server is 127.0.0.1
-  assert.deepEqual(real(errors), []);
+  assert.deepEqual(errors, []);
 }));
 
 test('double-tap resets camera', () => withPage('/product.html?p=lamp', async (page, errors) => {
@@ -38,7 +36,7 @@ test('double-tap resets camera', () => withPage('/product.html?p=lamp', async (p
   const { theta, phi } = await page.$eval('#viewer', el => { const o = el.getCameraOrbit(); return { theta: o.theta, phi: o.phi }; });
   assert.ok(Math.abs(theta) < 0.05, `theta ${theta}`);
   assert.ok(Math.abs(phi - (75 * Math.PI) / 180) < 0.05, `phi ${phi}`);
-  assert.deepEqual(real(errors), []);
+  assert.deepEqual(errors, []);
 }));
 
 for (const path of ['/product.html?p=nope', '/product.html']) {
@@ -53,14 +51,14 @@ for (const path of ['/product.html?p=nope', '/product.html']) {
 test('model download failure shows error', () => withPage('/product.html?p=sofa', async (page, errors) => {
   await page.waitForSelector('#load-error', { visible: true, timeout: 10000 });
   assert.equal(await page.$eval('#load-error a', a => a.href), page.url());
-  for (const e of real(errors)) assert.match(e, /ERR_FAILED|SofaGlamVelvet|GlamVelvetSofa|fetch/i, e);
+  for (const e of errors) assert.match(e, /ERR_FAILED|SofaGlamVelvet|GlamVelvetSofa|fetch/i, e);
 }, { block: /\.glb$/ }));
 
 test('refresh is clean', () => withPage('/product.html?p=sofa', async (page, errors) => {
   await waitLoaded(page);
   await page.reload({ waitUntil: 'load' });
   await waitLoaded(page);
-  assert.deepEqual(real(errors), []);
+  assert.deepEqual(errors, []);
 }));
 
 test('variants: sofa has 5, switching works; chair 2; lamp none', async () => {
@@ -75,7 +73,7 @@ test('variants: sofa has 5, switching works; chair 2; lamp none', async () => {
     assert.equal(await page.$eval('#viewer', el => el.variantName), 'Navy');
     assert.equal(await page.$eval('#variants button[data-variant="Navy"]', b => b.getAttribute('aria-pressed')), 'true');
     assert.equal(await page.$eval('#variants button[data-variant="Gray"]', b => b.getAttribute('aria-pressed')), 'false');
-    assert.deepEqual(real(errors), []);
+    assert.deepEqual(errors, []);
   });
   await withPage('/product.html?p=chair', async page => {
     await waitLoaded(page);
@@ -96,7 +94,7 @@ test('hotspots: sofa has 4, tapping one shows its detail', () => withPage('/prod
   await page.$eval('#viewer button.hotspot', b => b.click());
   await page.waitForSelector('#hotspot-card', { visible: true, timeout: 3000 });
   assert.match(await page.$eval('#hotspot-card', el => el.textContent), /Deep velvet seat/);
-  assert.deepEqual(real(errors), []);
+  assert.deepEqual(errors, []);
 }));
 
 test('picker: ?pick=1 prints position and normal of the tapped point', () => withPage('/product.html?p=sofa&pick=1', async (page, errors) => {
@@ -105,7 +103,7 @@ test('picker: ?pick=1 prints position and normal of the tapped point', () => wit
   await page.mouse.click(box.x + box.width / 2, box.y + box.height * 0.55);
   await page.waitForSelector('#pick-out', { visible: true, timeout: 3000 });
   assert.match(await page.$eval('#pick-out', el => el.textContent), /^position: -?\d+\.\d{3} -?\d+\.\d{3} -?\d+\.\d{3} normal: /);
-  assert.deepEqual(real(errors), []);
+  assert.deepEqual(errors, []);
 }));
 
 test('demo tour on the hero product only', async () => {
@@ -119,7 +117,7 @@ test('demo tour on the hero product only', async () => {
     assert.match(await page.$eval('#demo-step', el => el.textContent), /2\/4/);
     await page.click('#demo-stop');
     assert.equal(await isVisible(page, '#demo-panel'), false);
-    assert.deepEqual(real(errors), []);
+    assert.deepEqual(errors, []);
   });
   await withPage('/product.html?p=chair', async page => {
     await waitLoaded(page);

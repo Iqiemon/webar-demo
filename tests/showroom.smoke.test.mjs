@@ -39,5 +39,5 @@ test('showroom: tap or pick a product to focus it; empty space does nothing', ()
   await page.mouse.click(box.x + 5, box.y + 5); // sky
   await sleep(300);
   assert.equal(await focusName(page), 'Sheen Lounge Chair');
-  assert.deepEqual(errors.filter(e => !/posters\//.test(e)), []);
+  assert.deepEqual(errors, []);
 }));

@@ -6,8 +6,6 @@ import path from 'node:path';
 import { withPage, closeAll, isVisible } from './helpers/browser.mjs';
 
 after(closeAll);
-// shortcut: posters arrive in Task 7; until then their 404s are expected. Remove this filter in Task 7.
-const real = errors => errors.filter(e => !/posters\//.test(e));
 const sleep = ms => new Promise(r => setTimeout(r, ms));
 
 test('landing lists products, showroom and QR', () => withPage('/', async (page, errors) => {
@@ -19,7 +17,7 @@ test('landing lists products, showroom and QR', () => withPage('/', async (page,
   assert.equal(await page.$eval('#qr-sheet-link', a => a.getAttribute('href')), 'qr.html');
   await page.waitForSelector('#home-qr svg', { visible: true, timeout: 5000 });
   assert.equal(await isVisible(page, '#home-qr .local-warning'), true);
-  assert.deepEqual(real(errors), []);
+  assert.deepEqual(errors, []);
 }));
 
 test('qr sheet: 5 codes, base URL rewrites them, bad base is handled', () => withPage('/qr.html', async (page, errors) => {
@@ -36,7 +34,7 @@ test('qr sheet: 5 codes, base URL rewrites them, bad base is handled', () => wit
   await page.$eval('#base', el => { el.value = 'not a url'; el.dispatchEvent(new Event('input', { bubbles: true })); });
   assert.equal(await isVisible(page, '#base-error'), true);
   assert.equal(await page.$eval('.qr-item:nth-child(3) .qr-url', el => el.textContent), 'https://demo.example.com/ar/product.html?p=sofa');
-  assert.deepEqual(real(errors), []);
+  assert.deepEqual(errors, []);
 }));
 
 test('qr sheet: ?base= preset and SVG/PNG downloads', () => withPage('/qr.html?base=https://demo.example.com/', async (page, errors) => {
@@ -51,5 +49,5 @@ test('qr sheet: ?base= preset and SVG/PNG downloads', () => withPage('/qr.html?b
   assert.deepEqual(fs.readdirSync(dir).sort(), ['qr-home.png', 'qr-home.svg']);
   assert.match(fs.readFileSync(path.join(dir, 'qr-home.svg'), 'utf8'), /^<svg/);
   assert.deepEqual([...fs.readFileSync(path.join(dir, 'qr-home.png')).subarray(1, 4)].map(c => String.fromCharCode(c)).join(''), 'PNG');
-  assert.deepEqual(real(errors), []);
+  assert.deepEqual(errors, []);
 }));
