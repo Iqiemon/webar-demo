@@ -23,12 +23,63 @@ function show(product) {
     viewer.fieldOfView = 'auto';
   });
   viewer.addEventListener('load', () => {
+    renderVariants(viewer);
     if (!viewer.canActivateAR) {
       renderQr($('#qr-panel .qr'), location.href);
       $('#qr-panel').hidden = false;
     }
   }, { once: true });
+  renderHotspots(viewer, product.hotspots);
+  viewer.addEventListener('click', () => { $('#hotspot-card').hidden = true; });
+  if (new URLSearchParams(location.search).has('pick')) enablePicker(viewer);
   viewer.setAttribute('alt', `3D model of ${product.name}`);
   viewer.setAttribute('poster', product.poster);
   viewer.setAttribute('src', product.model);
+}
+
+function renderVariants(viewer) {
+  const box = $('#variants');
+  const names = viewer.availableVariants;
+  if (!names.length) return;
+  const current = viewer.variantName; // null = the model's own default materials, matching no chip
+  box.replaceChildren(...names.map(name => {
+    const b = Object.assign(document.createElement('button'), { type: 'button', className: 'chip', textContent: name });
+    b.dataset.variant = name;
+    b.setAttribute('aria-pressed', String(name === current));
+    b.addEventListener('click', () => {
+      viewer.variantName = name;
+      box.querySelectorAll('button').forEach(o => o.setAttribute('aria-pressed', String(o === b)));
+    });
+    return b;
+  }));
+  box.hidden = false;
+}
+
+function renderHotspots(viewer, hotspots) {
+  const card = $('#hotspot-card');
+  hotspots.forEach((h, i) => {
+    const b = Object.assign(document.createElement('button'), { type: 'button', className: 'hotspot', slot: `hotspot-${i}`, textContent: String(i + 1) });
+    b.dataset.position = h.position;
+    b.dataset.normal = h.normal;
+    b.setAttribute('aria-label', h.title);
+    b.addEventListener('click', e => {
+      e.stopPropagation(); // the viewer's click closes the card
+      card.querySelector('strong').textContent = h.title;
+      card.querySelector('p').textContent = h.text;
+      card.hidden = false;
+    });
+    viewer.append(b);
+  });
+}
+
+// Dev aid for placing hotspots on new models: tap the model, copy the numbers into products.json.
+function enablePicker(viewer) {
+  const out = $('#pick-out');
+  const fmt = v => [v.x, v.y, v.z].map(n => n.toFixed(3)).join(' ');
+  viewer.addEventListener('click', e => {
+    const hit = viewer.positionAndNormalFromPoint(e.clientX, e.clientY);
+    if (!hit) return;
+    out.textContent = `position: ${fmt(hit.position)} normal: ${fmt(hit.normal)}`;
+    out.hidden = false;
+  });
 }

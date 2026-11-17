@@ -62,3 +62,48 @@ test('refresh is clean', () => withPage('/product.html?p=sofa', async (page, err
   await waitLoaded(page);
   assert.deepEqual(real(errors), []);
 }));
+
+test('variants: sofa has 5, switching works; chair 2; lamp none', async () => {
+  await withPage('/product.html?p=sofa', async (page, errors) => {
+    await waitLoaded(page);
+    await page.waitForSelector('#variants button', { visible: true, timeout: 5000 });
+    assert.deepEqual(await page.$$eval('#variants button', bs => bs.map(b => b.dataset.variant)), ['Champagne', 'Navy', 'Gray', 'Black', 'Pale Pink']);
+    // before any choice, the pressed chip must match what the model shows (no variant applied → none pressed)
+    const shown = await page.$eval('#viewer', el => el.variantName);
+    assert.deepEqual(await page.$$eval('#variants button[aria-pressed="true"]', bs => bs.map(b => b.dataset.variant)), shown ? [shown] : []);
+    await page.click('#variants button[data-variant="Navy"]');
+    assert.equal(await page.$eval('#viewer', el => el.variantName), 'Navy');
+    assert.equal(await page.$eval('#variants button[data-variant="Navy"]', b => b.getAttribute('aria-pressed')), 'true');
+    assert.equal(await page.$eval('#variants button[data-variant="Gray"]', b => b.getAttribute('aria-pressed')), 'false');
+    assert.deepEqual(real(errors), []);
+  });
+  await withPage('/product.html?p=chair', async page => {
+    await waitLoaded(page);
+    await page.waitForSelector('#variants button', { visible: true, timeout: 5000 });
+    assert.equal((await page.$$('#variants button')).length, 2);
+  });
+  await withPage('/product.html?p=lamp', async page => {
+    await waitLoaded(page);
+    await sleep(300);
+    assert.equal(await isVisible(page, '#variants'), false);
+  });
+});
+
+test('hotspots: sofa has 4, tapping one shows its detail', () => withPage('/product.html?p=sofa', async (page, errors) => {
+  await waitLoaded(page);
+  assert.equal((await page.$$('#viewer button.hotspot')).length, 4);
+  assert.match(await page.$eval('#viewer button.hotspot', b => b.slot), /^hotspot-0$/);
+  await page.$eval('#viewer button.hotspot', b => b.click());
+  await page.waitForSelector('#hotspot-card', { visible: true, timeout: 3000 });
+  assert.match(await page.$eval('#hotspot-card', el => el.textContent), /Deep velvet seat/);
+  assert.deepEqual(real(errors), []);
+}));
+
+test('picker: ?pick=1 prints position and normal of the tapped point', () => withPage('/product.html?p=sofa&pick=1', async (page, errors) => {
+  await waitLoaded(page);
+  const box = await (await page.$('#viewer')).boundingBox();
+  await page.mouse.click(box.x + box.width / 2, box.y + box.height * 0.55);
+  await page.waitForSelector('#pick-out', { visible: true, timeout: 3000 });
+  assert.match(await page.$eval('#pick-out', el => el.textContent), /^position: -?\d+\.\d{3} -?\d+\.\d{3} -?\d+\.\d{3} normal: /);
+  assert.deepEqual(real(errors), []);
+}));

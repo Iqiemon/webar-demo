@@ -2,7 +2,7 @@
   {
     "id": "sofa",
     "name": "Glam Velvet Sofa",
-    "tagline": "Three-seater in soft velvet, five colours",
+    "tagline": "Curved velvet sofa in five colours",
     "model": "models/GlamVelvetSofa.glb",
     "poster": "posters/sofa.webp",
     "hero": true,
@@ -14,32 +14,32 @@
     },
     "hotspots": [
       {
-        "title": "Deep seat cushions",
-        "text": "High-resilience foam wrapped in feather-blend fibre.",
-        "position": "0 0.47 0.02",
+        "title": "Deep velvet seat",
+        "text": "Soft-touch velvet over a deep, plush seat.",
+        "position": "-0.010 0.440 -0.033",
         "normal": "0 1 0",
-        "orbit": "20deg 55deg 2.6m"
+        "orbit": "0deg 55deg 2.8m"
       },
       {
-        "title": "Rolled arms",
-        "text": "Classic rolled profile, padded on all sides.",
-        "position": "-1.02 0.62 -0.1",
-        "normal": "-1 0 0",
-        "orbit": "-60deg 70deg 2.4m"
+        "title": "Curved backrest",
+        "text": "One continuous curve that wraps around you.",
+        "position": "-0.010 0.685 -0.501",
+        "normal": "-0.084 0.697 0.712",
+        "orbit": "-15deg 68deg 3m"
       },
       {
-        "title": "Tufted backrest",
-        "text": "Hand-finished channel tufting.",
-        "position": "0 0.72 -0.42",
-        "normal": "0 0 1",
-        "orbit": "0deg 70deg 2.8m"
+        "title": "Sculpted arm",
+        "text": "The back sweeps up into a rounded arm.",
+        "position": "0.897 0.717 0.254",
+        "normal": "-0.415 0.839 0.352",
+        "orbit": "45deg 65deg 2.4m"
       },
       {
-        "title": "Brass-tipped legs",
-        "text": "Solid wood legs with brushed brass caps.",
-        "position": "0.95 0.04 0.3",
-        "normal": "0 0 1",
-        "orbit": "40deg 85deg 1.8m"
+        "title": "Metal-capped legs",
+        "text": "Slim tapered legs with metal tips.",
+        "position": "-0.186 0.013 -0.273",
+        "normal": "-0.335 0 0.942",
+        "orbit": "10deg 86deg 2m"
       }
     ]
   },
@@ -57,7 +57,7 @@
     },
     "hotspots": [
       {
-        "title": "Velvet upholstery",
+        "title": "Button-tufted seat",
         "text": "Choose Mango or Peacock velvet.",
         "position": "0 0.38 0.08",
         "normal": "0 1 0"
