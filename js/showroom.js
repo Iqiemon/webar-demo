@@ -10,6 +10,7 @@ const isLoadFailure = e => e.detail?.type === 'loadfailure'; // not a lost WebGL
 room.addEventListener('error', e => { if (isLoadFailure(e)) $('#load-error').hidden = false; });
 focusViewer.addEventListener('error', e => { if (isLoadFailure(e)) $('#focus-error').hidden = false; });
 focusViewer.addEventListener('load', () => { $('#focus-error').hidden = true; });
+focusViewer.addEventListener('ar-status', e => { $('#focus-ar-error').hidden = e.detail?.status !== 'failed'; });
 
 $('#picker').replaceChildren(...products.map(p => {
   const b = Object.assign(document.createElement('button'), { type: 'button', className: 'chip', textContent: p.name });
@@ -35,6 +36,7 @@ function focus(p) {
   $('#focus-tagline').textContent = p.tagline;
   $('#focus-details').href = `product.html?p=${encodeURIComponent(p.id)}`;
   $('#focus-error').hidden = true;
+  $('#focus-ar-error').hidden = true;
   focusViewer.setAttribute('alt', `3D model of ${p.name}`);
   focusViewer.setAttribute('poster', p.poster);
   focusViewer.setAttribute('src', p.model);

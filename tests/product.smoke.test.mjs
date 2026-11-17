@@ -156,3 +156,14 @@ test('?debug=1 shows an on-screen log of environment, AR status and console outp
   for (const s of ['UA:', 'immersive-ar', 'quick-look', 'probe-warning', 'ar-status: failed']) assert.ok(log.includes(s), `log has ${s}`);
   assert.deepEqual(errors, []);
 }));
+
+test('AR failure on the phone shows a message instead of nothing', () => withPage('/product.html?p=sofa', async (page, errors) => {
+  await waitLoaded(page);
+  assert.equal(await isVisible(page, '#ar-error'), false);
+  await page.$eval('#viewer', el => el.dispatchEvent(new CustomEvent('ar-status', { detail: { status: 'failed' } })));
+  await page.waitForSelector('#ar-error', { visible: true, timeout: 2000 });
+  assert.match(await page.$eval('#ar-error', el => el.textContent), /Google Play Services for AR/);
+  await page.$eval('#viewer', el => el.dispatchEvent(new CustomEvent('ar-status', { detail: { status: 'session-started' } })));
+  assert.equal(await isVisible(page, '#ar-error'), false);
+  assert.deepEqual(errors, []);
+}));

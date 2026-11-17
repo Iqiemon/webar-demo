@@ -19,6 +19,8 @@ function show(product) {
   const viewer = $('#viewer');
   // only a failed download; a lost WebGL context (e.g. back from iOS Quick Look) recovers on its own
   viewer.addEventListener('error', e => { if (e.detail?.type === 'loadfailure') $('#load-error').hidden = false; });
+  // model-viewer reports 'failed' only after every AR mode (WebXR, Scene Viewer, Quick Look) has failed
+  viewer.addEventListener('ar-status', e => { $('#ar-error').hidden = e.detail?.status !== 'failed'; });
   viewer.addEventListener('dblclick', () => {
     viewer.cameraOrbit = HOME_ORBIT;
     viewer.cameraTarget = 'auto auto auto';

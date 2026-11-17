@@ -60,3 +60,13 @@ test('focus viewer shows an error when its model fails, and clears it on the nex
   await waitLoaded(page, '#focus-viewer', 30000);
   assert.equal(await isVisible(page, '#focus-error'), false);
 }, { block: /SheenChair\.glb$/ }));
+
+test('showroom: AR failure in the side viewer shows a message', () => withPage('/showroom.html', async (page, errors) => {
+  await waitLoaded(page, '#showroom', 60000);
+  await page.click('#picker button[data-product="lamp"]');
+  await page.$eval('#focus-viewer', el => el.dispatchEvent(new CustomEvent('ar-status', { detail: { status: 'failed' } })));
+  await page.waitForSelector('#focus-ar-error', { visible: true, timeout: 2000 });
+  await page.click('#picker button[data-product="chair"]'); // a new product starts clean
+  assert.equal(await isVisible(page, '#focus-ar-error'), false);
+  assert.deepEqual(errors, []);
+}));
