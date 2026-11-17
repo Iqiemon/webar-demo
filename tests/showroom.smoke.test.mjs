@@ -1,0 +1,43 @@
+import { test, after } from 'node:test';
+import assert from 'node:assert/strict';
+import { withPage, closeAll, isVisible, waitLoaded } from './helpers/browser.mjs';
+
+after(closeAll);
+const sleep = ms => new Promise(r => setTimeout(r, ms));
+const focusName = page => page.$eval('#focus-name', el => el.textContent);
+
+test('showroom: tap or pick a product to focus it; empty space does nothing', () => withPage('/showroom.html', async (page, errors) => {
+  await waitLoaded(page, '#showroom', 60000);
+  assert.equal(await isVisible(page, '#focus-panel'), false);
+  assert.deepEqual(await page.$$eval('#picker button', bs => bs.map(b => b.dataset.product)), ['sofa', 'chair', 'lamp']);
+
+  const box = await (await page.$('#showroom')).boundingBox();
+  // a drag that ends over a product is a rotate, not a tap: the click browsers fire after it must not focus
+  await page.$eval('#showroom', (el, cx, cy) => {
+    const ev = (type, x) => new PointerEvent(type, { clientX: x, clientY: cy, bubbles: true, pointerId: 1, isPrimary: true });
+    el.dispatchEvent(ev('pointerdown', cx + 200));
+    el.dispatchEvent(ev('pointerup', cx));
+    el.dispatchEvent(new MouseEvent('click', { clientX: cx, clientY: cy, bubbles: true }));
+  }, box.x + box.width / 2, box.y + box.height * 0.55);
+  await sleep(300);
+  assert.equal(await isVisible(page, '#focus-panel'), false);
+
+  // order matters: focusing moves the camera, so tap the centre (the sofa) first
+  await page.mouse.click(box.x + box.width / 2, box.y + box.height * 0.55);
+  await page.waitForSelector('#focus-panel', { visible: true, timeout: 3000 });
+  assert.equal(await focusName(page), 'Glam Velvet Sofa');
+
+  await page.click('#picker button[data-product="chair"]');
+  assert.equal(await focusName(page), 'Sheen Lounge Chair');
+  assert.match(await page.$eval('#focus-viewer', el => el.getAttribute('src')), /models\/SheenChair\.glb$/);
+  assert.equal(await page.$eval('#focus-details', a => a.getAttribute('href')), 'product.html?p=chair');
+  assert.match(await page.$eval('#showroom', el => String(el.cameraTarget)), /^-1\.75m/);
+  assert.equal(await page.$eval('#picker button[data-product="chair"]', b => b.getAttribute('aria-pressed')), 'true');
+  assert.equal(await page.$eval('#focus-viewer button[slot="ar-button"]', b => b.textContent.trim()), 'View in your space');
+
+  await sleep(1500); // let the camera settle on the chair
+  await page.mouse.click(box.x + 5, box.y + 5); // sky
+  await sleep(300);
+  assert.equal(await focusName(page), 'Sheen Lounge Chair');
+  assert.deepEqual(errors.filter(e => !/posters\//.test(e)), []);
+}));

@@ -77,6 +77,19 @@ a { color: var(--brand); }
 .showroom-link .muted { color: rgb(255 255 255 / 0.8); }
 @media (min-width: 900px) { .hero { grid-template-columns: 1fr 360px; align-items: center; } }
 
+/* Showroom */
+.showroom { display: grid; gap: 16px; }
+.showroom .viewer { height: 62vh; }
+.showroom .hint { margin: 12px 0 0; }
+.focus-panel { padding: 16px; border: 1px solid var(--line); border-radius: var(--radius); background: #fff; }
+.focus-panel h2 { margin: 12px 0 2px; font-size: 1.25rem; }
+.focus-panel p { margin: 0 0 12px; }
+.focus-viewer { width: 100%; height: 260px; border-radius: 10px; background: linear-gradient(var(--studio-top), var(--studio-bottom)); --poster-color: transparent; }
+@media (min-width: 900px) {
+  .showroom { grid-template-columns: 1fr 340px; align-items: start; }
+  .showroom .viewer { height: 74vh; }
+}
+
 /* QR sheet */
 .sheet-controls { padding: 8px 0 20px; display: grid; gap: 8px; max-width: 560px; }
 .sheet-controls input { min-height: 44px; padding: 0 12px; border: 1.5px solid var(--line); border-radius: 10px; font: inherit; }
