@@ -1,5 +1,8 @@
 export function pageUrl(base, page, params = {}) {
-  const u = new URL(page, base);
+  const b = new URL(base);
+  // "https://site/ar" means the /ar/ folder, not a file called "ar"
+  if (!b.pathname.endsWith('/') && !b.pathname.split('/').pop().includes('.')) b.pathname += '/';
+  const u = new URL(page, b);
   for (const [k, v] of Object.entries(params)) u.searchParams.set(k, v);
   return u.href;
 }

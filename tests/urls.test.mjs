@@ -13,3 +13,8 @@ test('isLocalUrl', () => {
   for (const u of ['https://demo.example.com/', 'http://172.32.0.1/', 'https://8.8.8.8/'])
     assert.equal(isLocalUrl(u), false, u);
 });
+
+test('pageUrl keeps a sub-path typed without a trailing slash', () => {
+  assert.equal(pageUrl('https://demo.example.com/ar', 'product.html', { p: 'sofa' }), 'https://demo.example.com/ar/product.html?p=sofa');
+  assert.equal(pageUrl('https://demo.example.com', 'showroom.html'), 'https://demo.example.com/showroom.html');
+});

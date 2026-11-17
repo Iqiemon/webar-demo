@@ -28,6 +28,11 @@ export function createTour(viewer, steps, onStep, { intervalMs = 4000 } = {}) {
     go(index + 1);
     restartTimer();
   }
+  // Holds the current step (e.g. while the user rotates the model); next() resumes auto-advance.
+  function pause() {
+    clearInterval(timer);
+    timer = null;
+  }
   function stop() {
     clearInterval(timer);
     timer = null;
@@ -36,5 +41,5 @@ export function createTour(viewer, steps, onStep, { intervalMs = 4000 } = {}) {
     viewer.cameraOrbit = HOME_ORBIT;
     onStep(null);
   }
-  return { start, next, stop };
+  return { start, next, pause, stop };
 }

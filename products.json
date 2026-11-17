@@ -73,7 +73,7 @@
   {
     "id": "lamp",
     "name": "Iridescent Table Lamp",
-    "tagline": "Colour-shifting glass shade, 48 cm tall",
+    "tagline": "Iridescent glass base, fabric drum shade, 48 cm tall",
     "model": "models/IridescenceLamp.glb",
     "poster": "posters/lamp.webp",
     "credit": "© 2022 Wayfair, LLC — CC BY 4.0",
@@ -84,16 +84,22 @@
     },
     "hotspots": [
       {
-        "title": "Iridescent shade",
+        "title": "Iridescent glass base",
         "text": "Thin-film glass shifts colour as you move around it.",
+        "position": "0.000 0.173 0.084",
+        "normal": "0.042 0.512 0.858"
+      },
+      {
+        "title": "Fabric drum shade",
+        "text": "Diffuses the light into a soft, even glow.",
         "position": "0 0.36 0.14",
         "normal": "0 0 1"
       },
       {
         "title": "Weighted base",
         "text": "Stable on any side table.",
-        "position": "0 0.03 0.12",
-        "normal": "0 0 1"
+        "position": "0.000 0.029 0.061",
+        "normal": "0.073 0.559 0.826"
       }
     ]
   }

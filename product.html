@@ -30,6 +30,13 @@
         environment-image="neutral" shadow-intensity="1">
         <button slot="ar-button" id="ar-button" class="button ar-button">View in your space</button>
         <div id="hotspot-card" class="hotspot-card" role="status" hidden><strong></strong><p></p></div>
+        <div id="demo-panel" class="hotspot-card demo-panel" hidden>
+          <p id="demo-step" aria-live="polite"></p>
+          <div class="demo-actions">
+            <button id="demo-next" class="button" type="button">Next</button>
+            <button id="demo-stop" class="button secondary" type="button">Stop</button>
+          </div>
+        </div>
         <output id="pick-out" class="pick-out" hidden></output>
         <div id="load-error" class="load-error" hidden>
           Couldn't load the 3D model. <a href="">Try again</a>
@@ -41,13 +48,6 @@
         <p id="tagline" class="muted"></p>
         <div id="variants" class="variants" role="group" aria-label="Colour" hidden></div>
         <button id="demo-play" class="button secondary" type="button" hidden>▶ Play demonstration</button>
-        <div id="demo-panel" class="demo-panel" hidden>
-          <p id="demo-step" aria-live="polite"></p>
-          <div class="demo-actions">
-            <button id="demo-next" class="button" type="button">Next</button>
-            <button id="demo-stop" class="button secondary" type="button">Stop</button>
-          </div>
-        </div>
         <p class="hint muted">Drag to rotate · pinch or scroll to zoom · double-tap to reset</p>
       </div>
 

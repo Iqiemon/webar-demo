@@ -17,7 +17,8 @@ function show(product) {
   $('#credit').textContent = `Sample 3D model: ${product.credit}`;
 
   const viewer = $('#viewer');
-  viewer.addEventListener('error', () => { $('#load-error').hidden = false; });
+  // only a failed download; a lost WebGL context (e.g. back from iOS Quick Look) recovers on its own
+  viewer.addEventListener('error', e => { if (e.detail?.type === 'loadfailure') $('#load-error').hidden = false; });
   viewer.addEventListener('dblclick', () => {
     viewer.cameraOrbit = HOME_ORBIT;
     viewer.cameraTarget = 'auto auto auto';
@@ -81,7 +82,12 @@ function setupTour(viewer, steps) {
     panel.hidden = i === null;
     if (i !== null) $('#demo-step').textContent = `${i + 1}/${steps.length} · ${steps[i].title}: ${steps[i].text}`;
   });
-  play.addEventListener('click', () => { $('#hotspot-card').hidden = true; tour.start(); });
+  play.addEventListener('click', () => {
+    $('#hotspot-card').hidden = true;
+    viewer.scrollIntoView({ behavior: 'smooth', block: 'nearest' }); // the caption sits on the viewer
+    tour.start();
+  });
+  viewer.addEventListener('camera-change', e => { if (e.detail?.source === 'user-interaction') tour.pause(); });
   $('#demo-next').addEventListener('click', () => tour.next());
   $('#demo-stop').addEventListener('click', () => tour.stop());
   play.hidden = false;

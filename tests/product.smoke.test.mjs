@@ -124,3 +124,25 @@ test('demo tour on the hero product only', async () => {
     assert.equal(await isVisible(page, '#demo-play'), false);
   });
 });
+
+test('lost WebGL context is not reported as a load failure', () => withPage('/product.html?p=chair', async (page, errors) => {
+  await waitLoaded(page);
+  await page.$eval('#viewer', el => el.dispatchEvent(new CustomEvent('error', { detail: { type: 'webglcontextlost' } })));
+  await sleep(200);
+  assert.equal(await isVisible(page, '#load-error'), false);
+  assert.deepEqual(errors, []);
+}));
+
+test('phone: demo caption is on screen and a user drag pauses the tour', () => withPage('/product.html?p=sofa', async (page, errors) => {
+  await page.setViewport({ width: 390, height: 664, isMobile: true, hasTouch: true });
+  await waitLoaded(page);
+  await page.$eval('#demo-play', b => b.click());
+  await page.waitForSelector('#demo-step', { visible: true, timeout: 3000 });
+  await sleep(800);
+  const r = await page.$eval('#demo-step', el => { const b = el.getBoundingClientRect(); return { top: b.top, bottom: b.bottom }; });
+  assert.ok(r.top >= 0 && r.bottom <= 664, `caption at ${r.top}-${r.bottom}`);
+  await page.$eval('#viewer', el => el.dispatchEvent(new CustomEvent('camera-change', { detail: { source: 'user-interaction' } })));
+  await sleep(4600);
+  assert.match(await page.$eval('#demo-step', el => el.textContent), /^1\/4/);
+  assert.deepEqual(errors, []);
+}));

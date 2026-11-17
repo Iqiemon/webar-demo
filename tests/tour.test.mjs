@@ -52,3 +52,12 @@ test('plays the model animation once when it has one', () => {
   assert.equal(viewer.animationName, 'Open');
   assert.deepEqual(viewer.played, { repetitions: 1 });
 });
+test('pause stops auto-advance; next resumes it', () => {
+  const t = tour(); t.start(); t.pause();
+  mock.timers.tick(10000);
+  assert.deepEqual(calls, [0]);
+  t.next();
+  assert.deepEqual(calls, [0, 1]);
+  mock.timers.tick(4000);
+  assert.deepEqual(calls, [0, 1, 2]);
+});

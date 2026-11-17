@@ -41,3 +41,22 @@ test('showroom: tap or pick a product to focus it; empty space does nothing', ()
   assert.equal(await focusName(page), 'Sheen Lounge Chair');
   assert.deepEqual(errors, []);
 }));
+
+test('phone: focusing a product brings the panel on screen', () => withPage('/showroom.html', async (page, errors) => {
+  await page.setViewport({ width: 390, height: 664, isMobile: true, hasTouch: true });
+  await waitLoaded(page, '#showroom', 60000);
+  await page.$eval('#picker button[data-product="lamp"]', b => b.click());
+  await sleep(1200);
+  const top = await page.$eval('#focus-name', el => el.getBoundingClientRect().top);
+  assert.ok(top >= 0 && top < 664, `focus name at y=${top}`);
+  assert.deepEqual(errors, []);
+}));
+
+test('focus viewer shows an error when its model fails, and clears it on the next product', () => withPage('/showroom.html', async page => {
+  await waitLoaded(page, '#showroom', 60000);
+  await page.click('#picker button[data-product="chair"]');
+  await page.waitForSelector('#focus-error', { visible: true, timeout: 10000 });
+  await page.click('#picker button[data-product="lamp"]');
+  await waitLoaded(page, '#focus-viewer', 30000);
+  assert.equal(await isVisible(page, '#focus-error'), false);
+}, { block: /SheenChair\.glb$/ }));

@@ -50,11 +50,14 @@ Do this on a recent iPhone (Safari) and a recent Android phone (Chrome), on 4G w
 
 - [ ] QR scan opens the demo
 - [ ] Each product loads in under about 3 seconds
-- [ ] Rotate, zoom, double-tap reset, variants and hotspots work
+- [ ] Rotate, zoom, variants and hotspots work
+- [ ] Double-tap resets the view (iOS Safari may not send double-taps to the 3D view; tests only simulate it)
 - [ ] AR places each product at correct scale on the floor and on a table
-- [ ] iPhone: the chosen colour carries into AR Quick Look
-- [ ] Demonstration tour plays on the sofa
-- [ ] Showroom switches between products and launches AR from the side panel
+- [ ] The chosen colour carries into AR: iPhone Quick Look, and on Android whether Chrome used WebXR (keeps the colour) or Scene Viewer (default colours)
+- [ ] How the lamp's glass and the velvet look in native AR: Quick Look and Scene Viewer may drop transmission, iridescence and sheen
+- [ ] Demonstration tour plays on the sofa, and pauses when you rotate the model
+- [ ] Showroom: taps (including slightly shaky ones) focus a product, the side panel scrolls into view, and AR launches from it once the model has loaded
+- [ ] Returning from AR to the page leaves the 3D view working (no "Couldn't load" message)
 - [ ] No errors after refreshing
 
 Sample models: Glam Velvet Sofa and Iridescent Table Lamp © Wayfair, LLC (CC BY 4.0); Sheen Chair © Wayfair, LLC (CC0). From the [Khronos glTF Sample Assets](https://github.com/KhronosGroup/glTF-Sample-Assets).
