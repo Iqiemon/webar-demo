@@ -3,6 +3,7 @@
   "private": true,
   "type": "module",
   "scripts": {
+    "build": "node scripts/build-site.mjs",
     "start": "node scripts/serve.mjs",
     "test": "node --test tests/",
     "check": "node scripts/check-products.mjs",

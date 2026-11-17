@@ -38,9 +38,18 @@ Branding: change the colour tokens at the top of `css/style.css` and the header 
 
 ## Deploy
 
-Upload these to any static host with HTTPS (Cloudflare Pages, Netlify, GitHub Pages or a VPS):
+`npm run build` copies only the public site into `dist/` (docs, tests and scripts stay private).
 
-`index.html product.html showroom.html qr.html products.json css/ js/ models/ posters/`
+**Cloudflare Pages** (Workers & Pages → Create → Pages → Connect to Git → this repo):
+
+| Setting | Value |
+| --- | --- |
+| Production branch | `main` |
+| Framework preset | None |
+| Build command | `npm run build` |
+| Build output directory | `dist` |
+
+Any other static HTTPS host works the same way: upload the contents of `dist/`.
 
 Then open `https://<your-site>/qr.html?base=https://<your-site>/` to print the QR codes.
 
