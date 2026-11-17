@@ -1,0 +1,18 @@
+{
+  "name": "webar-demo",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "start": "node scripts/serve.mjs",
+    "test": "node --test tests/",
+    "check": "node scripts/check-products.mjs",
+    "build:showroom": "node scripts/build-showroom.mjs",
+    "posters": "node scripts/make-posters.mjs"
+  },
+  "devDependencies": {
+    "@gltf-transform/core": "^4.5.1",
+    "@gltf-transform/extensions": "^4.5.1",
+    "@gltf-transform/functions": "^4.5.1",
+    "puppeteer-core": "^25.17.0"
+  }
+}
