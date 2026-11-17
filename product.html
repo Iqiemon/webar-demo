@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Product · WebAR Demo</title>
+  <link rel="icon" href="data:,">
+  <link rel="stylesheet" href="css/style.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcode-generator/1.4.4/qrcode.min.js" integrity="sha384-mZT2gIty7ZDdOGkxfP6joZcYdMW1Jvj9dRlfpTmaJAKKXTqzygtB22k7FLe+KZC1" crossorigin="anonymous"></script>
+  <script type="module" src="https://ajax.googleapis.com/ajax/libs/model-viewer/4.0.0/model-viewer.min.js" integrity="sha384-sr9b4Ux0WhAUGclJ0ym0FSY2zSOMmNSn0bP/SA0e6bNCrpn/5W3QL8mm+LdlQMKw" crossorigin="anonymous"></script>
+  <script type="module" src="js/product.js"></script>
+</head>
+<body>
+  <header class="bar">
+    <a href="index.html" class="back">← All products</a>
+    <span class="badge">Sample model</span>
+  </header>
+
+  <main>
+    <section id="not-found" class="notice" hidden>
+      <h1>Product not found</h1>
+      <p>This link doesn't match a product in the demo.</p>
+      <a class="button" href="index.html">See all products</a>
+    </section>
+
+    <article id="product" class="product" hidden>
+      <model-viewer id="viewer" class="viewer"
+        ar ar-modes="webxr scene-viewer quick-look" ar-scale="fixed"
+        camera-controls touch-action="pan-y" camera-orbit="0deg 75deg auto"
+        environment-image="neutral" shadow-intensity="1">
+        <button slot="ar-button" id="ar-button" class="button ar-button">View in your space</button>
+        <div id="load-error" class="load-error" hidden>
+          Couldn't load the 3D model. <a href="">Try again</a>
+        </div>
+      </model-viewer>
+
+      <div class="info">
+        <h1 id="title"></h1>
+        <p id="tagline" class="muted"></p>
+        <p class="hint muted">Drag to rotate · pinch or scroll to zoom · double-tap to reset</p>
+      </div>
+
+      <aside id="qr-panel" class="qr-panel" hidden>
+        <div class="qr"></div>
+        <div>
+          <strong>View it in your room</strong>
+          <p class="muted">Scan with your phone camera to open this product and place it in AR.</p>
+        </div>
+      </aside>
+    </article>
+  </main>
+
+  <footer><p id="credit" class="muted"></p></footer>
+</body>
+</html>
