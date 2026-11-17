@@ -107,3 +107,22 @@ test('picker: ?pick=1 prints position and normal of the tapped point', () => wit
   assert.match(await page.$eval('#pick-out', el => el.textContent), /^position: -?\d+\.\d{3} -?\d+\.\d{3} -?\d+\.\d{3} normal: /);
   assert.deepEqual(real(errors), []);
 }));
+
+test('demo tour on the hero product only', async () => {
+  await withPage('/product.html?p=sofa', async (page, errors) => {
+    await waitLoaded(page);
+    await page.click('#demo-play');
+    await page.waitForSelector('#demo-panel', { visible: true, timeout: 3000 });
+    let step = await page.$eval('#demo-step', el => el.textContent);
+    assert.match(step, /1\/4/); assert.match(step, /Deep velvet seat/);
+    await page.click('#demo-next');
+    assert.match(await page.$eval('#demo-step', el => el.textContent), /2\/4/);
+    await page.click('#demo-stop');
+    assert.equal(await isVisible(page, '#demo-panel'), false);
+    assert.deepEqual(real(errors), []);
+  });
+  await withPage('/product.html?p=chair', async page => {
+    await waitLoaded(page);
+    assert.equal(await isVisible(page, '#demo-play'), false);
+  });
+});

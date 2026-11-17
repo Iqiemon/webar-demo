@@ -1,5 +1,6 @@
 import { loadProducts, findProduct } from './catalog.js';
 import { renderQr } from './qr.js';
+import { createTour } from './tour.js';
 
 const $ = s => document.querySelector(s);
 const HOME_ORBIT = '0deg 75deg auto';
@@ -30,6 +31,7 @@ function show(product) {
     }
   }, { once: true });
   renderHotspots(viewer, product.hotspots);
+  if (product.hero) setupTour(viewer, product.hotspots);
   viewer.addEventListener('click', () => { $('#hotspot-card').hidden = true; });
   if (new URLSearchParams(location.search).has('pick')) enablePicker(viewer);
   viewer.setAttribute('alt', `3D model of ${product.name}`);
@@ -70,6 +72,19 @@ function renderHotspots(viewer, hotspots) {
     });
     viewer.append(b);
   });
+}
+
+function setupTour(viewer, steps) {
+  const play = $('#demo-play'), panel = $('#demo-panel');
+  const tour = createTour(viewer, steps, i => {
+    play.hidden = i !== null;
+    panel.hidden = i === null;
+    if (i !== null) $('#demo-step').textContent = `${i + 1}/${steps.length} · ${steps[i].title}: ${steps[i].text}`;
+  });
+  play.addEventListener('click', () => { $('#hotspot-card').hidden = true; tour.start(); });
+  $('#demo-next').addEventListener('click', () => tour.next());
+  $('#demo-stop').addEventListener('click', () => tour.stop());
+  play.hidden = false;
 }
 
 // Dev aid for placing hotspots on new models: tap the model, copy the numbers into products.json.
