@@ -59,6 +59,8 @@ a { color: var(--brand); }
 
 .notice { padding: 48px 0; text-align: center; }
 
+.debug-log { position: fixed; left: 0; right: 0; bottom: 0; z-index: 10; max-height: 40vh; overflow: auto; margin: 0; padding: 8px; background: rgb(0 0 0 / 0.85); color: #9f9; font: 11px/1.35 ui-monospace, monospace; white-space: pre-wrap; word-break: break-all; }
+
 /* Landing */
 .brand { font-size: 1.05rem; letter-spacing: -0.01em; }
 .hero { display: grid; gap: 20px; padding: 16px 0 28px; }

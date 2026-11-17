@@ -35,6 +35,7 @@ function show(product) {
   if (product.hero) setupTour(viewer, product.hotspots);
   viewer.addEventListener('click', () => { $('#hotspot-card').hidden = true; });
   if (new URLSearchParams(location.search).has('pick')) enablePicker(viewer);
+  if (new URLSearchParams(location.search).has('debug')) import('./debug.js').then(m => m.startDebug(viewer));
   viewer.setAttribute('alt', `3D model of ${product.name}`);
   viewer.setAttribute('poster', product.poster);
   viewer.setAttribute('src', product.model);

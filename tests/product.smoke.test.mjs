@@ -146,3 +146,13 @@ test('phone: demo caption is on screen and a user drag pauses the tour', () => w
   assert.match(await page.$eval('#demo-step', el => el.textContent), /^1\/4/);
   assert.deepEqual(errors, []);
 }));
+
+test('?debug=1 shows an on-screen log of environment, AR status and console output', () => withPage('/product.html?p=sofa&debug=1', async (page, errors) => {
+  await waitLoaded(page);
+  await page.waitForSelector('#debug-log', { visible: true, timeout: 3000 });
+  await page.waitForFunction(() => /canActivateAR: false/.test(document.querySelector('#debug-log').textContent), { timeout: 5000 });
+  await page.evaluate(() => { console.warn('probe-warning'); document.querySelector('#viewer').dispatchEvent(new CustomEvent('ar-status', { detail: { status: 'failed' } })); });
+  const log = await page.$eval('#debug-log', el => el.textContent);
+  for (const s of ['UA:', 'immersive-ar', 'quick-look', 'probe-warning', 'ar-status: failed']) assert.ok(log.includes(s), `log has ${s}`);
+  assert.deepEqual(errors, []);
+}));
