@@ -1,0 +1,97 @@
+[
+  {
+    "id": "sofa",
+    "name": "Glam Velvet Sofa",
+    "tagline": "Three-seater in soft velvet, five colours",
+    "model": "models/GlamVelvetSofa.glb",
+    "poster": "posters/sofa.webp",
+    "hero": true,
+    "credit": "© 2021 Wayfair, LLC — CC BY 4.0",
+    "showroom": {
+      "x": 0,
+      "rotY": 0
+    },
+    "hotspots": [
+      {
+        "title": "Deep seat cushions",
+        "text": "High-resilience foam wrapped in feather-blend fibre.",
+        "position": "0 0.47 0.02",
+        "normal": "0 1 0",
+        "orbit": "20deg 55deg 2.6m"
+      },
+      {
+        "title": "Rolled arms",
+        "text": "Classic rolled profile, padded on all sides.",
+        "position": "-1.02 0.62 -0.1",
+        "normal": "-1 0 0",
+        "orbit": "-60deg 70deg 2.4m"
+      },
+      {
+        "title": "Tufted backrest",
+        "text": "Hand-finished channel tufting.",
+        "position": "0 0.72 -0.42",
+        "normal": "0 0 1",
+        "orbit": "0deg 70deg 2.8m"
+      },
+      {
+        "title": "Brass-tipped legs",
+        "text": "Solid wood legs with brushed brass caps.",
+        "position": "0.95 0.04 0.3",
+        "normal": "0 0 1",
+        "orbit": "40deg 85deg 1.8m"
+      }
+    ]
+  },
+  {
+    "id": "chair",
+    "name": "Sheen Lounge Chair",
+    "tagline": "Low lounge chair in two velvet finishes",
+    "model": "models/SheenChair.glb",
+    "poster": "posters/chair.webp",
+    "credit": "© 2020 Wayfair, LLC — CC0",
+    "showroom": {
+      "x": -1.75,
+      "rotY": 30
+    },
+    "hotspots": [
+      {
+        "title": "Velvet upholstery",
+        "text": "Choose Mango or Peacock velvet.",
+        "position": "0 0.38 0.08",
+        "normal": "0 1 0"
+      },
+      {
+        "title": "Curved backrest",
+        "text": "Wraps around for lumbar support.",
+        "position": "0 0.62 -0.2",
+        "normal": "0 0 1"
+      }
+    ]
+  },
+  {
+    "id": "lamp",
+    "name": "Iridescent Table Lamp",
+    "tagline": "Colour-shifting glass shade, 48 cm tall",
+    "model": "models/IridescenceLamp.glb",
+    "poster": "posters/lamp.webp",
+    "credit": "© 2022 Wayfair, LLC — CC BY 4.0",
+    "showroom": {
+      "x": 1.6,
+      "rotY": 0
+    },
+    "hotspots": [
+      {
+        "title": "Iridescent shade",
+        "text": "Thin-film glass shifts colour as you move around it.",
+        "position": "0 0.36 0.14",
+        "normal": "0 0 1"
+      },
+      {
+        "title": "Weighted base",
+        "text": "Stable on any side table.",
+        "position": "0 0.03 0.12",
+        "normal": "0 0 1"
+      }
+    ]
+  }
+]
