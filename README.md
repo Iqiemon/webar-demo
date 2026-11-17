@@ -40,7 +40,7 @@ Branding: change the colour tokens at the top of `css/style.css` and the header 
 
 `npm run build` copies only the public site into `dist/` (docs, tests and scripts stay private).
 
-**Cloudflare Pages** (Workers & Pages → Create → Pages → Connect to Git → this repo):
+**Cloudflare** (deployed as a Worker from this repo): `wrangler.jsonc` runs `npm run build` and serves `dist/`, so no dashboard build settings are needed. For a Pages project instead, use:
 
 | Setting | Value |
 | --- | --- |

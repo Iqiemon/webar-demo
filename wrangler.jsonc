@@ -1,0 +1,7 @@
+// Cloudflare Worker (static assets only). Publishes dist/ so docs, tests and scripts stay private.
+{
+  "name": "webar-demo",
+  "compatibility_date": "2026-10-01",
+  "build": { "command": "npm run build" },
+  "assets": { "directory": "./dist" }
+}
