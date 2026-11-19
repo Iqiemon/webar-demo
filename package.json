@@ -8,6 +8,7 @@
     "test": "node --test tests/",
     "check": "node scripts/check-products.mjs",
     "build:showroom": "node scripts/build-showroom.mjs",
+    "model:table": "node scripts/make-table.mjs",
     "posters": "node scripts/make-posters.mjs"
   },
   "devDependencies": {

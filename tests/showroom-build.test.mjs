@@ -16,7 +16,7 @@ test('merges products into one scene, laid out from products.json', async () => 
   const scenes = doc.getRoot().listScenes();
   assert.equal(scenes.length, 1);
   const groups = scenes[0].listChildren();
-  assert.deepEqual(groups.map(n => n.getName()), ['showroom-sofa', 'showroom-chair', 'showroom-lamp']);
+  assert.deepEqual(groups.map(n => n.getName()), ['showroom-sofa', 'showroom-chair', 'showroom-lamp', 'showroom-table']);
   for (const [i, p] of products.entries()) {
     assert.deepEqual(groups[i].getTranslation(), [p.showroom.x, 0, 0]);
     assert.ok(groups[i].listChildren().length > 0, `${p.id} has content`);
