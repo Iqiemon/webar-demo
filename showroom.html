@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Showroom · WebAR Demo</title>
+  <title data-i18n="title.showroom">Showroom · WebAR Demo</title>
   <link rel="icon" href="data:,">
   <link rel="stylesheet" href="css/style.css">
   <script type="module" src="https://ajax.googleapis.com/ajax/libs/model-viewer/4.0.0/model-viewer.min.js" integrity="sha384-sr9b4Ux0WhAUGclJ0ym0FSY2zSOMmNSn0bP/SA0e6bNCrpn/5W3QL8mm+LdlQMKw" crossorigin="anonymous"></script>
@@ -11,29 +11,30 @@
 </head>
 <body>
   <header class="bar">
-    <a href="index.html" class="back">← Demo home</a>
-    <span class="badge">Virtual showroom</span>
+    <a href="index.html" class="back" data-i18n="back.home">← Demo home</a>
+    <span class="badge" data-i18n="badge.showroom">Virtual showroom</span>
+    <button id="lang-toggle" class="badge" type="button"></button>
   </header>
 
   <main class="showroom">
     <div class="showroom-stage">
       <model-viewer id="showroom" class="viewer"
-        src="models/showroom.glb" alt="Showroom with a sofa, a lounge chair and a table lamp"
+        src="models/showroom.glb" data-i18n-alt="room.alt" alt="Showroom with a sofa, a lounge chair and a table lamp"
         camera-controls touch-action="pan-y" camera-orbit="0deg 70deg auto" camera-target="auto auto auto"
         environment-image="neutral" shadow-intensity="1">
-        <div id="load-error" class="load-error" hidden>Couldn't load the showroom. <a href="">Try again</a></div>
+        <div id="load-error" class="load-error" data-i18n-html="room.error" hidden>Couldn't load the showroom. <a href="">Try again</a></div>
       </model-viewer>
-      <p class="hint muted">Tap a product to focus it, or choose one:</p>
-      <div id="picker" class="variants" role="group" aria-label="Products"></div>
+      <p class="hint muted" data-i18n="room.hint">Tap a product to focus it, or choose one:</p>
+      <div id="picker" class="variants" role="group" aria-label="Products" data-i18n-aria-label="products.label"></div>
     </div>
 
     <aside id="focus-panel" class="focus-panel" hidden>
       <model-viewer id="focus-viewer" class="focus-viewer"
         ar ar-modes="webxr scene-viewer quick-look" ar-scale="fixed"
         camera-controls touch-action="pan-y" auto-rotate environment-image="neutral" shadow-intensity="1">
-        <button slot="ar-button" class="button ar-button">View in your space</button>
-        <div id="focus-error" class="load-error" hidden>Couldn't load this model. Check your connection and tap the product again.</div>
-        <div id="focus-ar-error" class="load-error" role="alert" hidden>
+        <button slot="ar-button" class="button ar-button" data-i18n="ar.button">View in your space</button>
+        <div id="focus-error" class="load-error" data-i18n="focus.error" hidden>Couldn't load this model. Check your connection and tap the product again.</div>
+        <div id="focus-ar-error" class="load-error" role="alert" data-i18n-html="focus.ar.error" hidden>
           AR couldn't start on this phone. On Android it needs Google Play Services for AR
           (<a href="https://developers.google.com/ar/devices" target="_blank" rel="noopener">supported phones</a>);
           on iPhone, use Safari.
@@ -41,7 +42,7 @@
       </model-viewer>
       <h2 id="focus-name"></h2>
       <p id="focus-tagline" class="muted"></p>
-      <a id="focus-details" class="button secondary" href="">Colours, details &amp; demo</a>
+      <a id="focus-details" class="button secondary" href="" data-i18n-html="focus.details">Colours, details &amp; demo</a>
     </aside>
   </main>
 </body>

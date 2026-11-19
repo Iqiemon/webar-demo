@@ -41,7 +41,28 @@
         "normal": "-0.335 0 0.942",
         "orbit": "10deg 86deg 2m"
       }
-    ]
+    ],
+    "ms": {
+      "tagline": "Sofa baldu melengkung dalam lima warna",
+      "hotspots": [
+        {
+          "title": "Tempat duduk baldu tebal",
+          "text": "Baldu lembut sentuhan di atas tempat duduk yang tebal dan empuk."
+        },
+        {
+          "title": "Penyandar belakang melengkung",
+          "text": "Satu lengkung berterusan yang membungkus anda."
+        },
+        {
+          "title": "Lengan berukir",
+          "text": "Bahagian belakang melengkung naik menjadi lengan bulat."
+        },
+        {
+          "title": "Kaki bertapak logam",
+          "text": "Kaki langsing meruncing dengan hujung logam."
+        }
+      ]
+    }
   },
   {
     "id": "chair",
@@ -68,7 +89,20 @@
         "position": "0 0.62 -0.2",
         "normal": "0 0 1"
       }
-    ]
+    ],
+    "ms": {
+      "tagline": "Kerusi santai rendah dalam dua kemasan baldu",
+      "hotspots": [
+        {
+          "title": "Tempat duduk berkancing",
+          "text": "Pilih baldu Mango atau Peacock."
+        },
+        {
+          "title": "Penyandar belakang melengkung",
+          "text": "Membungkus untuk sokongan pinggang."
+        }
+      ]
+    }
   },
   {
     "id": "lamp",
@@ -101,7 +135,24 @@
         "position": "0.000 0.029 0.061",
         "normal": "0.073 0.559 0.826"
       }
-    ]
+    ],
+    "ms": {
+      "tagline": "Tapak kaca berpelangi, teduhan kain berbentuk dram, tinggi 48 cm",
+      "hotspots": [
+        {
+          "title": "Tapak kaca berpelangi",
+          "text": "Kaca filem nipis berubah warna apabila anda bergerak mengelilinginya."
+        },
+        {
+          "title": "Teduhan kain berbentuk dram",
+          "text": "Menyebarkan cahaya menjadi pancaran yang lembut dan sekata."
+        },
+        {
+          "title": "Tapak berat",
+          "text": "Stabil pada mana-mana meja sisi."
+        }
+      ]
+    }
   },
   {
     "id": "table",
@@ -128,6 +179,19 @@
         "position": "0.44 0.2 0.215",
         "normal": "0 0 1"
       }
-    ]
+    ],
+    "ms": {
+      "tagline": "Meja kopi oak rendah, 100 × 50 cm",
+      "hotspots": [
+        {
+          "title": "Permukaan oak padu",
+          "text": "Permukaan nipis dan rata dengan ruang untuk buku dan secawan minuman."
+        },
+        {
+          "title": "Kaki lurus",
+          "text": "Empat kaki segi empat menjadikannya stabil di atas mana-mana lantai."
+        }
+      ]
+    }
   }
 ]

@@ -1,4 +1,7 @@
 import { loadProducts, productAtX } from './catalog.js';
+import { t, initLangToggle } from './i18n.js';
+
+initLangToggle(document.querySelector('#lang-toggle'));
 
 const $ = s => document.querySelector(s);
 const DRAG_PX = 6; // pointer travel beyond this is a rotate, not a tap
@@ -37,7 +40,7 @@ function focus(p) {
   $('#focus-details').href = `product.html?p=${encodeURIComponent(p.id)}`;
   $('#focus-error').hidden = true;
   $('#focus-ar-error').hidden = true;
-  focusViewer.setAttribute('alt', `3D model of ${p.name}`);
+  focusViewer.setAttribute('alt', t('alt', { name: p.name }));
   focusViewer.setAttribute('poster', p.poster);
   focusViewer.setAttribute('src', p.model);
   $('#picker').querySelectorAll('button').forEach(b => b.setAttribute('aria-pressed', String(b.dataset.product === p.id)));

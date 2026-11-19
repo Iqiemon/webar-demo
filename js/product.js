@@ -1,6 +1,9 @@
 import { loadProducts, findProduct } from './catalog.js';
 import { renderQr } from './qr.js';
 import { createTour } from './tour.js';
+import { t, initLangToggle } from './i18n.js';
+
+initLangToggle(document.querySelector('#lang-toggle'));
 
 const $ = s => document.querySelector(s);
 const HOME_ORBIT = '0deg 75deg auto';
@@ -10,11 +13,11 @@ if (!product) $('#not-found').hidden = false;
 else show(product);
 
 function show(product) {
-  document.title = `${product.name} · WebAR Demo`;
+  document.title = t('title.productNamed', { name: product.name });
   $('#product').hidden = false;
   $('#title').textContent = product.name;
   $('#tagline').textContent = product.tagline;
-  $('#credit').textContent = `Sample 3D model: ${product.credit}`;
+  $('#credit').textContent = t('credit', { credit: product.credit });
 
   const viewer = $('#viewer');
   // only a failed download; a lost WebGL context (e.g. back from iOS Quick Look) recovers on its own
@@ -38,7 +41,7 @@ function show(product) {
   viewer.addEventListener('click', () => { $('#hotspot-card').hidden = true; });
   if (new URLSearchParams(location.search).has('pick')) enablePicker(viewer);
   if (new URLSearchParams(location.search).has('debug')) import('./debug.js').then(m => m.startDebug(viewer));
-  viewer.setAttribute('alt', `3D model of ${product.name}`);
+  viewer.setAttribute('alt', t('alt', { name: product.name }));
   viewer.setAttribute('poster', product.poster);
   viewer.setAttribute('src', product.model);
 }

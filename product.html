@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Product · WebAR Demo</title>
+  <title data-i18n="title.product">Product · WebAR Demo</title>
   <link rel="icon" href="data:,">
   <link rel="stylesheet" href="css/style.css">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcode-generator/1.4.4/qrcode.min.js" integrity="sha384-mZT2gIty7ZDdOGkxfP6joZcYdMW1Jvj9dRlfpTmaJAKKXTqzygtB22k7FLe+KZC1" crossorigin="anonymous"></script>
@@ -12,15 +12,16 @@
 </head>
 <body>
   <header class="bar">
-    <a href="index.html" class="back">← All products</a>
-    <span class="badge">Sample model</span>
+    <a href="index.html" class="back" data-i18n="back.all">← All products</a>
+    <span class="badge" data-i18n="badge.model">Sample model</span>
+    <button id="lang-toggle" class="badge" type="button"></button>
   </header>
 
   <main>
     <section id="not-found" class="notice" hidden>
-      <h1>Product not found</h1>
-      <p>This link doesn't match a product in the demo.</p>
-      <a class="button" href="index.html">See all products</a>
+      <h1 data-i18n="nf.title">Product not found</h1>
+      <p data-i18n="nf.text">This link doesn't match a product in the demo.</p>
+      <a class="button" href="index.html" data-i18n="nf.link">See all products</a>
     </section>
 
     <article id="product" class="product" hidden>
@@ -28,22 +29,22 @@
         ar ar-modes="webxr scene-viewer quick-look" ar-scale="fixed"
         camera-controls touch-action="pan-y" camera-orbit="0deg 75deg auto"
         environment-image="neutral" shadow-intensity="1">
-        <button slot="ar-button" id="ar-button" class="button ar-button">View in your space</button>
+        <button slot="ar-button" id="ar-button" class="button ar-button" data-i18n="ar.button">View in your space</button>
         <div id="hotspot-card" class="hotspot-card" role="status" hidden><strong></strong><p></p></div>
         <div id="demo-panel" class="hotspot-card demo-panel" hidden>
           <p id="demo-step" aria-live="polite"></p>
           <div class="demo-actions">
-            <button id="demo-next" class="button" type="button">Next</button>
-            <button id="demo-stop" class="button secondary" type="button">Stop</button>
+            <button id="demo-next" class="button" type="button" data-i18n="tour.next">Next</button>
+            <button id="demo-stop" class="button secondary" type="button" data-i18n="tour.stop">Stop</button>
           </div>
         </div>
         <output id="pick-out" class="pick-out" hidden></output>
-        <div id="ar-error" class="load-error" role="alert" hidden>
+        <div id="ar-error" class="load-error" role="alert" data-i18n-html="ar.error" hidden>
           AR couldn't start on this phone. On Android it needs Google Play Services for AR
           (<a href="https://developers.google.com/ar/devices" target="_blank" rel="noopener">supported phones</a>);
           on iPhone, use Safari. You can still explore the product in 3D.
         </div>
-        <div id="load-error" class="load-error" hidden>
+        <div id="load-error" class="load-error" data-i18n-html="load.error" hidden>
           Couldn't load the 3D model. <a href="">Try again</a>
         </div>
       </model-viewer>
@@ -51,16 +52,16 @@
       <div class="info">
         <h1 id="title"></h1>
         <p id="tagline" class="muted"></p>
-        <div id="variants" class="variants" role="group" aria-label="Colour" hidden></div>
-        <button id="demo-play" class="button secondary" type="button" hidden>▶ Play demonstration</button>
-        <p class="hint muted">Drag to rotate · pinch or scroll to zoom · double-tap to reset</p>
+        <div id="variants" class="variants" role="group" aria-label="Colour" data-i18n-aria-label="colour" hidden></div>
+        <button id="demo-play" class="button secondary" type="button" data-i18n="tour.play" hidden>▶ Play demonstration</button>
+        <p class="hint muted" data-i18n="hint">Drag to rotate · pinch or scroll to zoom · double-tap to reset</p>
       </div>
 
       <aside id="qr-panel" class="qr-panel" hidden>
         <div class="qr"></div>
         <div>
-          <strong>View it in your room</strong>
-          <p class="muted">Scan with your phone camera to open this product and place it in AR.</p>
+          <strong data-i18n="prod.qr.title">View it in your room</strong>
+          <p class="muted" data-i18n="prod.qr.text">Scan with your phone camera to open this product and place it in AR.</p>
         </div>
       </aside>
     </article>

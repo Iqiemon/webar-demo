@@ -1,14 +1,17 @@
 import { loadProducts } from './catalog.js';
 import { pageUrl } from './urls.js';
 import { qrSvg, renderQr } from './qr.js';
+import { t, initLangToggle } from './i18n.js';
+
+initLangToggle(document.querySelector('#lang-toggle'));
 
 const $ = s => document.querySelector(s);
 const slug = s => s.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
 
 const products = await loadProducts();
 const items = [
-  { label: 'Home', page: 'index.html' },
-  { label: 'Showroom', page: 'showroom.html' },
+  { label: t('qr.home'), page: 'index.html' },
+  { label: t('qr.showroom'), page: 'showroom.html' },
   ...products.map(p => ({ label: p.name, page: 'product.html', params: { p: p.id } })),
 ];
 
