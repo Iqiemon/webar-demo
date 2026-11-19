@@ -1,11 +1,14 @@
 import { loadProducts } from './catalog.js';
 import { renderQr } from './qr.js';
+import { initThemeToggle } from './theme.js';
 
 const el = (tag, props = {}, ...kids) => {
   const n = Object.assign(document.createElement(tag), props);
   n.append(...kids);
   return n;
 };
+
+initThemeToggle(document.querySelector('#theme-toggle'));
 
 const products = await loadProducts();
 
