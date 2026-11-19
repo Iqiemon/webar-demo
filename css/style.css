@@ -15,6 +15,9 @@
   color: var(--ink);
   background: var(--paper);
 }
+[data-theme="dark"] { --ink: #ecece8; --muted: #a3a39d; --line: #3a3a37; --paper: #151514; --studio-top: #2a2a28; --studio-bottom: #1c1c1b; --brand: #6fcf9f; --brand-ink: #10261b; --warn: #ffc470; --warn-bg: #3a2a10; color-scheme: dark; }
+button.badge { background: transparent; font: inherit; font-size: 0.75rem; cursor: pointer; }
+button.badge[aria-pressed="true"] { background: var(--brand); color: var(--brand-ink); }
 * { box-sizing: border-box; }
 [hidden] { display: none !important; } /* layout rules below must not un-hide */
 body { margin: 0; min-height: 100vh; display: flex; flex-direction: column; }
