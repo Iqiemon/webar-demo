@@ -102,5 +102,32 @@
         "normal": "0.073 0.559 0.826"
       }
     ]
+  },
+  {
+    "id": "table",
+    "name": "Oak Coffee Table",
+    "tagline": "Low oak coffee table, 100 × 50 cm",
+    "model": "models/Table.glb",
+    "poster": "posters/table.webp",
+    "credit": "Generated for this demo — CC0",
+    "showroom": {
+      "x": 2.6,
+      "rotY": 0,
+      "halfWidth": 0.5
+    },
+    "hotspots": [
+      {
+        "title": "Solid oak top",
+        "text": "A slim, flat top with room for books and a cup.",
+        "position": "0 0.45 0",
+        "normal": "0 1 0"
+      },
+      {
+        "title": "Straight legs",
+        "text": "Four square legs keep it steady on any floor.",
+        "position": "0.44 0.2 0.215",
+        "normal": "0 0 1"
+      }
+    ]
   }
 ]
