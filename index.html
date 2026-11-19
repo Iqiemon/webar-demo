@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>WebAR Demo</title>
+  <title data-i18n="title.home">WebAR Demo</title>
   <link rel="icon" href="data:,">
   <link rel="stylesheet" href="css/style.css">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcode-generator/1.4.4/qrcode.min.js" integrity="sha384-mZT2gIty7ZDdOGkxfP6joZcYdMW1Jvj9dRlfpTmaJAKKXTqzygtB22k7FLe+KZC1" crossorigin="anonymous"></script>
@@ -12,33 +12,34 @@
 <body>
   <header class="bar">
     <strong class="brand">WebAR Demo</strong>
-    <span class="badge">Sample products</span>
-    <button id="theme-toggle" class="badge" type="button" aria-pressed="false">Dark mode</button>
+    <span class="badge" data-i18n="badge.products">Sample products</span>
+    <button id="theme-toggle" class="badge" type="button" aria-pressed="false" data-i18n="theme">Dark mode</button>
+    <button id="lang-toggle" class="badge" type="button"></button>
   </header>
 
   <main>
     <section class="hero">
       <div>
-        <h1>See it in your space before you buy</h1>
-        <p class="muted">Open any product in 3D, change its colour, then place it in your room at real size. Runs in the phone browser — no app to install.</p>
+        <h1 data-i18n="home.title">See it in your space before you buy</h1>
+        <p class="muted" data-i18n="home.lead">Open any product in 3D, change its colour, then place it in your room at real size. Runs in the phone browser — no app to install.</p>
       </div>
       <aside id="home-qr" class="qr-panel home-qr">
         <div class="qr"></div>
         <div>
-          <strong>Open on your phone</strong>
-          <p class="muted">Scan with the camera app. <a id="qr-sheet-link" href="qr.html">Printable QR codes</a></p>
+          <strong data-i18n="home.qr.title">Open on your phone</strong>
+          <p class="muted" data-i18n-html="home.qr.text">Scan with the camera app. <a id="qr-sheet-link" href="qr.html">Printable QR codes</a></p>
         </div>
       </aside>
     </section>
 
     <section aria-labelledby="products-title">
-      <h2 id="products-title" class="section-title">Products</h2>
+      <h2 id="products-title" class="section-title" data-i18n="home.products">Products</h2>
       <div id="products" class="cards"></div>
     </section>
 
     <a id="showroom-link" class="showroom-link" href="showroom.html">
-      <strong>Virtual showroom →</strong>
-      <span class="muted">All three products together in one 3D room. Tap one to focus it, then view it in AR.</span>
+      <strong data-i18n="home.showroom.title">Virtual showroom →</strong>
+      <span class="muted" data-i18n="home.showroom.text">All three products together in one 3D room. Tap one to focus it, then view it in AR.</span>
     </a>
     <button type="button">Button</button>
   </main>

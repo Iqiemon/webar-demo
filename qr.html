@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>QR codes · WebAR Demo</title>
+  <title data-i18n="title.qr">QR codes · WebAR Demo</title>
   <link rel="icon" href="data:,">
   <link rel="stylesheet" href="css/style.css">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcode-generator/1.4.4/qrcode.min.js" integrity="sha384-mZT2gIty7ZDdOGkxfP6joZcYdMW1Jvj9dRlfpTmaJAKKXTqzygtB22k7FLe+KZC1" crossorigin="anonymous"></script>
@@ -11,17 +11,18 @@
 </head>
 <body>
   <header class="bar no-print">
-    <a href="index.html" class="back">← Demo home</a>
-    <span class="badge">QR codes</span>
+    <a href="index.html" class="back" data-i18n="back.home">← Demo home</a>
+    <span class="badge" data-i18n="badge.qr">QR codes</span>
+    <button id="lang-toggle" class="badge" type="button"></button>
   </header>
 
   <main>
     <div class="no-print sheet-controls">
-      <h1>Printable QR codes</h1>
-      <label for="base">Site address the codes should open</label>
+      <h1 data-i18n="qr.h1">Printable QR codes</h1>
+      <label for="base" data-i18n="qr.base">Site address the codes should open</label>
       <input id="base" type="url" inputmode="url" autocomplete="off" spellcheck="false">
-      <p id="base-error" class="local-warning" hidden>Enter a full address starting with https://</p>
-      <p class="muted">Print this page, or download each code as SVG (for print) or PNG.</p>
+      <p id="base-error" class="local-warning" data-i18n="qr.base.error" hidden>Enter a full address starting with https://</p>
+      <p class="muted" data-i18n="qr.help">Print this page, or download each code as SVG (for print) or PNG.</p>
     </div>
     <div id="sheet" class="sheet"></div>
   </main>

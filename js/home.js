@@ -1,6 +1,7 @@
 import { loadProducts } from './catalog.js';
 import { renderQr } from './qr.js';
 import { initThemeToggle } from './theme.js';
+import { t, initLangToggle } from './i18n.js';
 
 const el = (tag, props = {}, ...kids) => {
   const n = Object.assign(document.createElement(tag), props);
@@ -9,6 +10,7 @@ const el = (tag, props = {}, ...kids) => {
 };
 
 initThemeToggle(document.querySelector('#theme-toggle'));
+initLangToggle(document.querySelector('#lang-toggle'));
 
 const products = await loadProducts();
 
@@ -17,7 +19,7 @@ document.querySelector('#products').replaceChildren(...products.map(p =>
     el('img', { src: p.poster, alt: '', loading: 'lazy', width: 600, height: 450 }),
     el('h3', { textContent: p.name }),
     el('p', { className: 'muted', textContent: p.tagline }),
-    el('span', { className: 'card-cta', textContent: 'View in 3D & AR →' }))));
+    el('span', { className: 'card-cta', textContent: t('card.cta') }))));
 
 renderQr(document.querySelector('#home-qr .qr'), location.href);
-document.querySelector('#credits').textContent = `Sample 3D models: ${products.map(p => `${p.name} ${p.credit}`).join(' · ')}`;
+document.querySelector('#credits').textContent = t('home.credits', { credits: products.map(p => `${p.name} ${p.credit}`).join(' · ') });

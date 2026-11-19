@@ -1,9 +1,10 @@
 // Product data: load, look up, validate, and map a showroom x-coordinate to a product.
+import { localize } from './i18n.js';
 
 export async function loadProducts(url = 'products.json') {
   const res = await fetch(url);
   if (!res.ok) throw new Error(`Could not load products (${res.status})`);
-  return res.json();
+  return (await res.json()).map(localize);
 }
 
 export const findProduct = (products, id) => products.find(p => p.id === id);
