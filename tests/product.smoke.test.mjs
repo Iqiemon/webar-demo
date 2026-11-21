@@ -32,7 +32,11 @@ test('double-tap resets camera', () => withPage('/product.html?p=lamp', async (p
   await page.$eval('#viewer', el => { el.cameraOrbit = '90deg 30deg 2m'; el.jumpCameraToGoal(); });
   await sleep(300);
   await page.$eval('#viewer', el => el.dispatchEvent(new MouseEvent('dblclick', { bubbles: true })));
-  await sleep(2000);
+  // the reset animates: poll until the camera settles instead of racing a fixed sleep on slow machines
+  await page.waitForFunction(() => {
+    const o = document.querySelector('#viewer').getCameraOrbit();
+    return Math.abs(o.theta) < 0.05 && Math.abs(o.phi - (75 * Math.PI) / 180) < 0.05;
+  }, { timeout: 15000, polling: 100 }).catch(() => {});
   const { theta, phi } = await page.$eval('#viewer', el => { const o = el.getCameraOrbit(); return { theta: o.theta, phi: o.phi }; });
   assert.ok(Math.abs(theta) < 0.05, `theta ${theta}`);
   assert.ok(Math.abs(phi - (75 * Math.PI) / 180) < 0.05, `phi ${phi}`);
