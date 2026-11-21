@@ -11,8 +11,8 @@ const sleep = ms => new Promise(r => setTimeout(r, ms));
 test('landing lists products, showroom and QR', () => withPage('/', async (page, errors) => {
   await page.waitForSelector('#products .product-card', { timeout: 5000 });
   assert.deepEqual(await page.$$eval('#products a.product-card', as => as.map(a => a.getAttribute('href'))),
-    ['product.html?p=sofa', 'product.html?p=chair', 'product.html?p=lamp', 'product.html?p=table']);
-  assert.equal((await page.$$('#products .product-card img')).length, 4);
+    ['product.html?p=sofa', 'product.html?p=chair', 'product.html?p=lamp', 'product.html?p=table', 'product.html?p=loveseat']);
+  assert.equal((await page.$$('#products .product-card img')).length, 5);
   assert.equal(await page.$eval('#showroom-link', a => a.getAttribute('href')), 'showroom.html');
   assert.equal(await page.$eval('#qr-sheet-link', a => a.getAttribute('href')), 'qr.html');
   await page.waitForSelector('#home-qr svg', { visible: true, timeout: 5000 });
@@ -20,10 +20,10 @@ test('landing lists products, showroom and QR', () => withPage('/', async (page,
   assert.deepEqual(errors, []);
 }));
 
-test('qr sheet: 6 codes, base URL rewrites them, bad base is handled', () => withPage('/qr.html', async (page, errors) => {
+test('qr sheet: 7 codes, base URL rewrites them, bad base is handled', () => withPage('/qr.html', async (page, errors) => {
   await page.waitForSelector('.qr-item svg', { timeout: 5000 });
-  assert.equal((await page.$$('.qr-item')).length, 6);
-  assert.deepEqual(await page.$$eval('.qr-label', ls => ls.map(l => l.textContent)), ['Home', 'Showroom', 'Glam Velvet Sofa', 'Sheen Lounge Chair', 'Iridescent Table Lamp', 'Oak Coffee Table']);
+  assert.equal((await page.$$('.qr-item')).length, 7);
+  assert.deepEqual(await page.$$eval('.qr-label', ls => ls.map(l => l.textContent)), ['Home', 'Showroom', 'Glam Velvet Sofa', 'Sheen Lounge Chair', 'Iridescent Table Lamp', 'Oak Coffee Table', 'Sage Linen Sofa']);
   assert.match(await page.$eval('.qr-url', el => el.textContent), /\/index\.html$/);
   assert.equal(await isVisible(page, '.qr-item .local-warning'), true);
 

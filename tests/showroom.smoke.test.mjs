@@ -9,7 +9,7 @@ const focusName = page => page.$eval('#focus-name', el => el.textContent);
 test('showroom: tap or pick a product to focus it; empty space does nothing', () => withPage('/showroom.html', async (page, errors) => {
   await waitLoaded(page, '#showroom', 60000);
   assert.equal(await isVisible(page, '#focus-panel'), false);
-  assert.deepEqual(await page.$$eval('#picker button', bs => bs.map(b => b.dataset.product)), ['sofa', 'chair', 'lamp', 'table']);
+  assert.deepEqual(await page.$$eval('#picker button', bs => bs.map(b => b.dataset.product)), ['sofa', 'chair', 'lamp', 'table', 'loveseat']);
 
   const box = await (await page.$('#showroom')).boundingBox();
   // Sample the canvas for a point that actually lands on the sofa, instead of assuming the centre
