@@ -60,9 +60,10 @@ test('phone: focusing a product brings the panel on screen', () => withPage('/sh
   await page.setViewport({ width: 390, height: 664, isMobile: true, hasTouch: true });
   await waitLoaded(page, '#showroom', 60000);
   await page.$eval('#picker button[data-product="lamp"]', b => b.click());
-  await sleep(1200);
-  const top = await page.$eval('#focus-name', el => el.getBoundingClientRect().top);
-  assert.ok(top >= 0 && top < 664, `focus name at y=${top}`);
+  await page.waitForFunction(() => {
+    const top = document.querySelector('#focus-name').getBoundingClientRect().top;
+    return top >= 0 && top < innerHeight;
+  }, { timeout: 10000 });
   assert.deepEqual(errors, []);
 }));
 
