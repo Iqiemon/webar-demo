@@ -1,9 +1,8 @@
-// Generates models/SageLinenSofa.glb: a straight-lined linen sofa (1.58 x 0.84 x 0.80 m), original work. npm run model:sofa
 import { Document, NodeIO } from '@gltf-transform/core';
 
 const doc = new Document();
 const buf = doc.createBuffer();
-const linen = doc.createMaterial('linen').setBaseColorFactor([0.58, 0.63, 0.55, 1]).setRoughnessFactor(0.9).setMetallicFactor(0);
+const linen = doc.createMaterial('linen').setBaseColorFactor([0.42, 0.48, 0.36, 1]).setRoughnessFactor(0.9).setMetallicFactor(0);
 const oak = doc.createMaterial('oak').setBaseColorFactor([0.60, 0.42, 0.26, 1]).setRoughnessFactor(0.6).setMetallicFactor(0);
 
 function box(name, [w, h, d], [x, y, z], material) {
