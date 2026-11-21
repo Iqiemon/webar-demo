@@ -9,21 +9,35 @@ const focusName = page => page.$eval('#focus-name', el => el.textContent);
 test('showroom: tap or pick a product to focus it; empty space does nothing', () => withPage('/showroom.html', async (page, errors) => {
   await waitLoaded(page, '#showroom', 60000);
   assert.equal(await isVisible(page, '#focus-panel'), false);
-  assert.deepEqual(await page.$$eval('#picker button', bs => bs.map(b => b.dataset.product)), ['sofa', 'chair', 'lamp']);
+  assert.deepEqual(await page.$$eval('#picker button', bs => bs.map(b => b.dataset.product)), ['sofa', 'chair', 'lamp', 'table']);
 
   const box = await (await page.$('#showroom')).boundingBox();
+  // Sample the canvas for a point that actually lands on the sofa, instead of assuming the centre
+  // is one: the default camera framing depends on the merged scene's bounds.
+  const sofa = await page.$eval('#showroom', (el, box) => {
+    for (let fy = 0.4; fy <= 0.7; fy += 0.05) {
+      for (let fx = 0.3; fx <= 0.7; fx += 0.02) {
+        const x = box.x + box.width * fx, y = box.y + box.height * fy;
+        const hit = el.positionAndNormalFromPoint(x, y);
+        if (hit && Math.abs(hit.position.x) <= 1.1) return { x, y };
+      }
+    }
+    return null;
+  }, box);
+  assert.ok(sofa, 'found a point on the sofa');
+
   // a drag that ends over a product is a rotate, not a tap: the click browsers fire after it must not focus
   await page.$eval('#showroom', (el, cx, cy) => {
     const ev = (type, x) => new PointerEvent(type, { clientX: x, clientY: cy, bubbles: true, pointerId: 1, isPrimary: true });
     el.dispatchEvent(ev('pointerdown', cx + 200));
     el.dispatchEvent(ev('pointerup', cx));
     el.dispatchEvent(new MouseEvent('click', { clientX: cx, clientY: cy, bubbles: true }));
-  }, box.x + box.width / 2, box.y + box.height * 0.55);
+  }, sofa.x, sofa.y);
   await sleep(300);
   assert.equal(await isVisible(page, '#focus-panel'), false);
 
-  // order matters: focusing moves the camera, so tap the centre (the sofa) first
-  await page.mouse.click(box.x + box.width / 2, box.y + box.height * 0.55);
+  // tap the sofa first: focusing moves the camera, so later hit points would no longer apply
+  await page.mouse.click(sofa.x, sofa.y);
   await page.waitForSelector('#focus-panel', { visible: true, timeout: 3000 });
   assert.equal(await focusName(page), 'Glam Velvet Sofa');
 

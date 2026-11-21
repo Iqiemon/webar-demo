@@ -1,0 +1,40 @@
+name: CI
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  test:
+    name: Tests
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - name: Install dependencies
+        run: npm ci
+      - name: Use the runner's Chrome
+        # The smoke tests launch a real Chrome through puppeteer-core, so it must be on this runner.
+        run: |
+          chrome=$(command -v google-chrome || command -v google-chrome-stable || command -v chromium || command -v chromium-browser)
+          test -n "$chrome" || { echo "No Chrome found on the runner" >&2; exit 1; }
+          echo "CHROME_PATH=$chrome" >> "$GITHUB_ENV"
+          "$chrome" --version
+      - name: Validate products and assets
+        run: npm run check
+      - name: Build the site
+        run: npm run build
+      - name: Unit and smoke tests
+        run: npm test
