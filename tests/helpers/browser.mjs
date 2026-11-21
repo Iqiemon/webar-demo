@@ -7,7 +7,12 @@ let server, browser;
 
 export async function withPage(path, fn, { block } = {}) {
   server ??= await startServer({ port: 0, host: '127.0.0.1' });
-  browser ??= await puppeteer.launch({ executablePath: CHROME, headless: true, args: ['--enable-unsafe-swiftshader', '--use-angle=swiftshader'] });
+  // A Chrome that crashed ("Connection closed.") is replaced, so one crash fails one test instead of hanging the rest.
+  if (!browser?.connected) {
+    browser?.process()?.kill('SIGKILL');
+    browser = await puppeteer.launch({ executablePath: CHROME, headless: true,
+      args: ['--enable-unsafe-swiftshader', '--use-angle=swiftshader', '--disable-dev-shm-usage'] });
+  }
   const page = await browser.newPage();
   await page.setViewport({ width: 1280, height: 800 });
   const errors = [];
@@ -26,7 +31,10 @@ export async function withPage(path, fn, { block } = {}) {
 }
 
 export async function closeAll() {
-  await browser?.close();
+  // close() on a dead or wedged Chrome can wait forever; give it 5 s, then kill the process.
+  const b = browser;
+  if (b) await Promise.race([b.close().catch(() => {}), new Promise((r) => setTimeout(r, 5000).unref())]);
+  b?.process()?.kill('SIGKILL');
   await server?.close();
   browser = server = undefined;
 }
