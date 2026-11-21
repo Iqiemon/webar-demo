@@ -9,6 +9,7 @@
     "check": "node scripts/check-products.mjs",
     "build:showroom": "node scripts/build-showroom.mjs",
     "model:table": "node scripts/make-table.mjs",
+    "model:sofa": "node scripts/make-sofa.mjs",
     "posters": "node scripts/make-posters.mjs"
   },
   "devDependencies": {

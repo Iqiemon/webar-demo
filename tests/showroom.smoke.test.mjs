@@ -9,7 +9,7 @@ const focusName = page => page.$eval('#focus-name', el => el.textContent);
 test('showroom: tap or pick a product to focus it; empty space does nothing', () => withPage('/showroom.html', async (page, errors) => {
   await waitLoaded(page, '#showroom', 60000);
   assert.equal(await isVisible(page, '#focus-panel'), false);
-  assert.deepEqual(await page.$$eval('#picker button', bs => bs.map(b => b.dataset.product)), ['sofa', 'chair', 'lamp', 'table']);
+  assert.deepEqual(await page.$$eval('#picker button', bs => bs.map(b => b.dataset.product)), ['sofa', 'chair', 'lamp', 'table', 'loveseat']);
 
   const box = await (await page.$('#showroom')).boundingBox();
   // Sample the canvas for a point that actually lands on the sofa, instead of assuming the centre
@@ -60,9 +60,10 @@ test('phone: focusing a product brings the panel on screen', () => withPage('/sh
   await page.setViewport({ width: 390, height: 664, isMobile: true, hasTouch: true });
   await waitLoaded(page, '#showroom', 60000);
   await page.$eval('#picker button[data-product="lamp"]', b => b.click());
-  await sleep(1200);
-  const top = await page.$eval('#focus-name', el => el.getBoundingClientRect().top);
-  assert.ok(top >= 0 && top < 664, `focus name at y=${top}`);
+  await page.waitForFunction(() => {
+    const top = document.querySelector('#focus-name').getBoundingClientRect().top;
+    return top >= 0 && top < innerHeight;
+  }, { timeout: 10000 });
   assert.deepEqual(errors, []);
 }));
 

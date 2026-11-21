@@ -1,6 +1,6 @@
 # WebAR Demo
 
-A phone-browser AR demo of three products: 3D viewer, colour variants, hotspots, a guided demo tour, "View in your space" AR, a one-scene showroom, and QR codes. Static site, no backend, no build step. Spec: [docs/spec.md](docs/spec.md).
+A phone-browser AR demo of several products: 3D viewer, colour variants, hotspots, a guided demo tour, "View in your space" AR, a one-scene showroom, and QR codes. Static site, no backend, no build step. Spec: [docs/spec.md](docs/spec.md).
 
 ## Run and test
 
@@ -69,4 +69,4 @@ Do this on a recent iPhone (Safari) and a recent Android phone (Chrome), on 4G w
 - [ ] Returning from AR to the page leaves the 3D view working (no "Couldn't load" message)
 - [ ] No errors after refreshing
 
-Sample models: Glam Velvet Sofa and Iridescent Table Lamp © Wayfair, LLC (CC BY 4.0); Sheen Chair © Wayfair, LLC (CC0). From the [Khronos glTF Sample Assets](https://github.com/KhronosGroup/glTF-Sample-Assets).
+Sample models: Glam Velvet Sofa and Iridescent Table Lamp © Wayfair, LLC (CC BY 4.0); Sheen Chair © Wayfair, LLC (CC0). From the [Khronos glTF Sample Assets](https://github.com/KhronosGroup/glTF-Sample-Assets). Oak Coffee Table and Sage Linen Sofa are generated for this demo (CC0).

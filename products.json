@@ -193,5 +193,65 @@
         }
       ]
     }
+  },
+  {
+    "id": "loveseat",
+    "name": "Sage Linen Sofa",
+    "tagline": "Straight-lined linen sofa in sage, 1.58 m wide",
+    "model": "models/SageLinenSofa.glb",
+    "poster": "posters/loveseat.webp",
+    "credit": "Generated for this demo — CC0",
+    "showroom": {
+      "x": 4.2,
+      "rotY": 0,
+      "halfWidth": 0.84
+    },
+    "hotspots": [
+      {
+        "title": "Linen seat cushions",
+        "text": "Two deep, removable cushions on a solid frame.",
+        "position": "0.380 0.460 0.050",
+        "normal": "0 1 0"
+      },
+      {
+        "title": "Padded arms",
+        "text": "Low arms that soften the straight lines.",
+        "position": "0.720 0.700 0.000",
+        "normal": "0 1 0"
+      },
+      {
+        "title": "Straight backrest",
+        "text": "A firm back with two loose cushions.",
+        "position": "0.000 0.630 -0.150",
+        "normal": "0 0 1"
+      },
+      {
+        "title": "Tapered oak legs",
+        "text": "Solid oak legs keep the low profile off the floor.",
+        "position": "0.700 0.050 0.350",
+        "normal": "0 0 1"
+      }
+    ],
+    "ms": {
+      "tagline": "Sofa linen bergaris lurus dalam warna sage, lebar 1.58 m",
+      "hotspots": [
+        {
+          "title": "Kusyen tempat duduk linen",
+          "text": "Dua kusyen tebal yang boleh ditanggalkan pada rangka padu."
+        },
+        {
+          "title": "Lengan berlapik",
+          "text": "Lengan rendah yang melembutkan garis lurus."
+        },
+        {
+          "title": "Penyandar belakang lurus",
+          "text": "Penyandar padu dengan dua kusyen longgar."
+        },
+        {
+          "title": "Kaki oak meruncing",
+          "text": "Kaki oak padu mengekalkan profil rendah di atas lantai."
+        }
+      ]
+    }
   }
 ]
