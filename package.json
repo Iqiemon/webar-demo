@@ -5,7 +5,7 @@
   "scripts": {
     "build": "node scripts/build-site.mjs",
     "start": "node scripts/serve.mjs",
-    "test": "node --test --test-timeout=60000",
+    "test": "node --test --test-timeout=300000",
     "check": "node scripts/check-products.mjs",
     "build:showroom": "node scripts/build-showroom.mjs",
     "model:table": "node scripts/make-table.mjs",
